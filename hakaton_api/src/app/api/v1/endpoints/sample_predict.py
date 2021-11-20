@@ -1,8 +1,8 @@
 import os
 import random
-from typing import Match
+import numpy as np
 
-from fastapi import APIRouter, Request
+from fastapi import APIRouter
 from starlette.responses import UJSONResponse
 
 from src.app.schemas.request import RequestSample
@@ -21,9 +21,6 @@ async def get_predict_sample(request: RequestSample):
     """
 
     production_description = request.production_description
-    match = random.choice([True, False])
-    if match:
-        response = ResponseCategory(match = "Подошло")
-    else:
-        response = ResponseCategory(match = "Не сошлось")
+    match = random.choice(np.arange(0, 100))
+    response = ResponseCategory(match = match)
     return response

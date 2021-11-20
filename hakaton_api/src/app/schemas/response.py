@@ -7,4 +7,4 @@ class ResponseCategory(BaseModel):
     Модель, описывающая структуру данных ответа
     """
 
-    match: str = Field(description="Соответствует", example="")
+    match: int = Field(description="Соответствует", example="")

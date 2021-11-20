@@ -3,11 +3,10 @@ import io
 import pandas as pd
 import numpy as np
 import random
+import time
 
-from fastapi import APIRouter, Request, File, UploadFile
+from fastapi import APIRouter, File, UploadFile
 from fastapi.responses import StreamingResponse
-from starlette import responses
-from starlette.responses import UJSONResponse
 
 host = os.environ.get("APP_HOST", "http://localhost:8090")
 
@@ -20,7 +19,7 @@ async def get_predict_csv(csv_file: UploadFile = File(...)):
     """
     df = pd.read_csv(csv_file.file)
 
-    assurance = pd.Series([random.choice(np.arrange(0, 1)) for i in range(df.shape[0])])
+    assurance = pd.DataFrame([random.choice(np.arange(0, 1)) for i in range(df.shape[0])], columns=["proba"])
 
     df_response = df.join(assurance)
 
