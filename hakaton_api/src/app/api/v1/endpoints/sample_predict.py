@@ -1,4 +1,6 @@
 import os
+import random
+from typing import Match
 
 from fastapi import APIRouter, Request
 from starlette.responses import UJSONResponse
@@ -17,4 +19,11 @@ router = APIRouter()
 async def get_predict_sample(request: RequestSample):
     """
     """
-    pass
+
+    production_description = request.production_description
+    match = random.choice([True, False])
+    if match:
+        response = ResponseCategory(match = "Подошло")
+    else:
+        response = ResponseCategory(match = "Не сошлось")
+    return response
