@@ -6,14 +6,14 @@ import pandas as pd
 import requests
 import json
 
-api_host = '10.106.3.204:8095'
+api_host = 'api:8090'
 # api_host = 'localhost:8080'
 
 categories = []
 
 
 def get_categories():
-    categories_df = pd.read_csv('./web/data/categories.csv')
+    categories_df = pd.read_csv('/app/data/categories.csv')
     return categories_df['category'].unique()
 
 
@@ -72,9 +72,9 @@ uploaded_file = st.file_uploader("Выберите csv")
 
 if uploaded_file is not None:
     dataframe = pd.read_csv(uploaded_file)
-    filename = 'web/data/uploaded.csv'
+    filename = 'app/data/uploaded.csv'
     dataframe.to_csv(filename, index=False)
-    files = {'csv_file': open('web/data/uploaded.csv', 'rb')}
+    files = {'csv_file': open('app/data/uploaded.csv', 'rb')}
     csv_response = requests.post(f"http://{api_host}/get_predict_csv", files=files)
     download_df = pd.read_csv(BytesIO(csv_response.content))
     csv = download_df.to_csv(index=False)

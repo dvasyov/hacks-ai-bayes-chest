@@ -1,0 +1,34 @@
+version: "2"
+
+services:
+  api:
+    restart: always
+    build:
+      context: ./hakaton_api
+    env_file:
+      - .env  
+    ports:
+      - 8095:8090
+    volumes:
+      - ./hakaton_api:/app
+    networks:
+      - hakaton
+    environment:
+      TZ: $TZ
+  
+      
+  web:
+    restart: always
+    build:
+      context: ./web  
+    ports:
+      - 80:8502
+    volumes:
+      - ./web:/app
+    environment:
+      TZ: $TZ
+    networks:
+      - hakaton
+
+networks:
+  hakaton:
