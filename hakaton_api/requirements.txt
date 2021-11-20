@@ -1,0 +1,13 @@
+fastapi==0.54.1
+httptools==0.1.1
+PyYAML==5.3.1
+requests==2.23.0
+ujson==2.0.3
+uvicorn==0.11.3
+uvloop==0.14.0
+sentry_sdk==0.14.3
+aiohttp==3.6.2
+starlette==0.13.2
+pydantic==1.5
+pandas
+python-multipart

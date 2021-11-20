@@ -1,0 +1,7 @@
+debug: True
+access_log: True
+log_level: debug
+workers: 1
+limit_concurrency:
+limit_max_requests:
+timeout_keepalive: 10

@@ -1,0 +1,15 @@
+version: "2"
+
+services:
+  api:
+    restart: always
+    build:
+      context: ./
+    env_file:
+      - .env  
+    ports:
+      - $API_PORT:8090
+    volumes:
+      - ./:/app
+    environment:
+      TZ: $TZ
