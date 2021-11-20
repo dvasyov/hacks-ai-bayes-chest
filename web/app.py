@@ -1,16 +1,21 @@
 import streamlit as st
 
 
+def get_categories():
+    pass
+
+
 st.title("Валидация сведений о продукции")
 st.markdown('')
+
 name = ''
 user_input = st.text_input("Текстовое описание продукции", name)
-code = ''
-st.text_input('Код ЕП РФ', code)
-category = ''
-st.text_input('Подкатегория', category)
+
+category = st.selectbox('Подкатегория', ('Кобикорм', 'Посуда', 'Интернет'))
+
+# st.write('You selected:', category)
 for i in range(15):
     st.markdown('')
-st.markdown('asd')
+st.markdown('Также можно загрузить сразу множество примеров через .csv файл')
 uploaded_file = st.file_uploader("Выберите csv")
 
