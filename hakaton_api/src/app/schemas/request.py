@@ -7,4 +7,4 @@ class RequestSample(BaseModel):
     """
 
     production_description: str = Field(description="Описание продукции", example="")
-    production_subcategory: str = Field(description="Подкатегория продукции", example="")
+    production_code: str = Field(description="Код продукции", example="")
