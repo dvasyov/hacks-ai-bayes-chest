@@ -1,4 +1,5 @@
 import base64
+import random
 from io import BytesIO
 import streamlit as st
 import pandas as pd
@@ -35,24 +36,26 @@ category = st.selectbox('Выберите подкатегорию', get_categor
 
 if st.button('Отправить'):
     quality = check_sample(name, category)
+    # quality = random.randint(0, 100)
     # st.write(quality)
+    default_style = '<p style=" ' \
+                    'padding: 10px;' \
+                    'background-color:#f0f2f6;' \
+                    'font-family:sans-serif; ' \
+                    'font-size: 18px;'
     if quality <= 33:
-        result = f'<p style=" ' \
-                 f'font-family:sans-serif; ' \
-                 f'color:Red; font-size: 18px;">' \
+        result = default_style + \
+                 f'color:Red;">' \
                  f'Соответствие {quality} %</p>'
         st.write(result, unsafe_allow_html=True)
     elif 33 < quality <= 66:
-        result = f'<p style="' \
-                 f'font-family:sans-serif; ' \
-                 f'color:#F8AA35; font-size: 18px;">' \
-                 f'Соответствтие {quality} %</p>'
+        result = default_style + \
+                 f'color:#F8AA35;">' \
+                 f'Соответствие {quality} %</p>'
         st.write(result, unsafe_allow_html=True)
     elif 66 < quality <= 100:
-        result = f'<p style="' \
-                 f'font-family:sans-serif; ' \
-                 f'color:Green; font-size: ' \
-                 f'18px;">' \
+        result = default_style + \
+                 f'color:Green;">' \
                  f'Соответствие {quality} %</p>'
         st.write(result, unsafe_allow_html=True)
 
