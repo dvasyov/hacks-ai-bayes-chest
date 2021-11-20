@@ -5,8 +5,6 @@ services:
     restart: always
     build:
       context: ./hakaton_api
-    env_file:
-      - .env  
     ports:
       - 8095:8090
     volumes:

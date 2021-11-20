@@ -1,1 +1,7 @@
-# hacks-ai-bayes-chest
+# Сервис для хакатона Челябинск 2021
+# Кейс Росаккредитации
+
+## Запуск сервиса 
+- Склонировать себе репозиторий `git clone <url>`
+- Собрать `docker-compose` при помощи команды `sudo docker-compose build`
+- Запустить сервис при помощи команды `sudo docker-compose up -d`
