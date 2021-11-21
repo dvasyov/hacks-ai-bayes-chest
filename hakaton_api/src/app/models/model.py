@@ -8,8 +8,8 @@ from pathlib import Path
 class BertVectorizer:
     def __init__(self,):
         self.device = "cpu"
-        self.tokenizer = AutoTokenizer.from_pretrained("cointegrated/rubert-tiny")
-        self.model = AutoModel.from_pretrained("cointegrated/rubert-tiny").to(self.device)
+        self.tokenizer = AutoTokenizer.from_pretrained("sentence-transformers/LaBSE")
+        self.model = AutoModel.from_pretrained("sentence-transformers/LaBSE").to(self.device)
         
 
     def vectorize(self, sentences: list):
