@@ -12,15 +12,16 @@ api_host = 'api:8090'
 categories = []
 
 
-def get_categories():
-    categories_df = pd.read_csv('/app/data/categories.csv')
-    return categories_df['category'].unique()
+def get_code_to_subcats():
+    with open('/app/data/code_to_subcats.json') as f:
+        code_to_subcats = json.load(f)
+    return code_to_subcats
 
 
-def check_sample(sample_name, sample_category):
+def check_sample(sample_name, production_code):
     data = json.dumps({
         'production_description': sample_name,
-        'production_subcategory': sample_category
+        'production_code': production_code
     })
     sample_response = requests.post(f"http://{api_host}/get_predict_sample", data=data).json()
     return int(sample_response['match'])
@@ -32,10 +33,13 @@ st.markdown('')
 name = ''
 name = st.text_input("Введите текстовое описание продукции", name)
 
-category = st.selectbox('Выберите подкатегорию', get_categories())
+
+code_to_subcats = get_code_to_subcats()
+code = st.selectbox('Выберите код', code_to_subcats.keys())
+st.markdown(f"##### Выбранный вами код соответствует подкатегории:\n\"{code_to_subcats[code]}\"")
 
 if st.button('Отправить'):
-    quality = check_sample(name, category)
+    quality = check_sample(name, code)
     # quality = random.randint(0, 100)
     # st.write(quality)
     default_style = '<p style=" ' \
@@ -65,16 +69,17 @@ else:
 
 for i in range(8):
     st.markdown('')
-st.markdown('#### Можно загрузить сразу множество примеров через .csv файл')
-st.markdown('Формат строк файла: *описание*, *подкатегория*')
+st.markdown('#### Можно загрузить сразу несколько примеров через .csv файл')
+st.markdown('Формат строк файла: *описание*, *код*.')
+st.markdown('Названия колонок: *name*, *code*.')
 
 uploaded_file = st.file_uploader("Выберите csv")
 
 if uploaded_file is not None:
     dataframe = pd.read_csv(uploaded_file)
-    filename = 'app/data/uploaded.csv'
+    filename = 'data/uploaded.csv'
     dataframe.to_csv(filename, index=False)
-    files = {'csv_file': open('app/data/uploaded.csv', 'rb')}
+    files = {'csv_file': open('data/uploaded.csv', 'rb')}
     csv_response = requests.post(f"http://{api_host}/get_predict_csv", files=files)
     download_df = pd.read_csv(BytesIO(csv_response.content))
     csv = download_df.to_csv(index=False)

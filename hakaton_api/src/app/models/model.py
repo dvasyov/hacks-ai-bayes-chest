@@ -25,12 +25,10 @@ class BertVectorizer:
 class Model:
     def __init__(self):
         self.cos = CosineSimilarity(dim=0, eps=1e-6)
-        # with open('/home/username/Рабочий стол/hacks-ai-bayes-chest/hakaton_api/src/app/models/models/etalon.json', 'r') as f:
-        with open('etalon.json', 'r') as f:
+        with open('src/app/models/models/etalon.json', 'r') as f:
             self.etalon_embbeds = json.loads(f.read())
         self.vectorizer = BertVectorizer()
         self.softmax = torch.nn.Softmax(dim=0)
-        pass    
 
     def predict(self, text):
         emb = self.vectorizer.vectorize([text])[0]
